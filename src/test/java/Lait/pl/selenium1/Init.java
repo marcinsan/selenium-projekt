@@ -13,16 +13,22 @@ public class Init {
 	static WebDriver driver;
 	
 	public static WebDriver getDriver() {
-		
+		System.out.println("wewnatrz getDriver");
 		System.setProperty("webdriver.chrome.driver", "C:\\seleniumkurs\\chromedriver.exe");
         DesiredCapabilities cap = DesiredCapabilities.chrome();
+        System.out.println("new ChromeDriver");
+        if(driver == null) {
+        	 driver = new ChromeDriver();
+             driver.get("http://newtours.demoaut.com/");
+             driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+             sleep(2); 
+             return driver;
+        }else{
+        	
+        	return driver;
+        }
         
-        driver = new ChromeDriver();
-        driver.get("http://newtours.demoaut.com/");
         
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
- 
-        return driver;
 	}		
        public static void sleep (int seconds) {
         	try {
@@ -32,7 +38,16 @@ public class Init {
         		e.printStackTrace();
         	}
         }
-        	
+       
+       public static void endTest() {
+    	   
+    	   driver.quit();
+    	   driver = null;
+    	   
+    	  
+       }
+        
+     
         
 	}
 
